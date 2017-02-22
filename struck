@@ -1,0 +1,75 @@
+																											
+																											
+																											
+																											
+																											
+																											
+																											
+																											
+															execute												xác định 
+																											điều hướng
+																											
+					request(POST/GET)									kiểm tra													
+		Browser									Action									Struts-config.xml							
+																											
+																											
+															Gọi Action							Gọi ActionForm tương ứng					
+															tương ứng												
+																											
+											model BO																
+																				ActionForm							
+																											
+																											
+																											
+																											
+											model DAO																
+																											
+																											
+																											
+																											
+																											
+																											
+										DATABASE																	
+																											
+																											
+																											
+																											
+																											
+		Struts là 1 framework dựa trên hoạt động của mô hình MVC, phủ lên bên trên JSP&Servlet.																									
+		Struts có 1 Servlet duy nhất là ActionServlet ( được hệ thống ẩn đi ) . Do không sử dung Servlet nào khác nên hệ thống sẽ thay thế bằng Action + Struts-config.xml																									
+		Struts cần tuân thủ các quy định của MVC, phân rõ chức năng của từng tầng , không được vi phạm																									
+																											
+																											
+		1 Action có thể hiểu đơn giản là một màn hình, làm nhiệm vụ điều hướng																									
+		1 ActionForm có thể hiểu đơn giản là để chứa tất cả các dữ liệu cần thiết của 1 Action																									
+		1 ActionForm tương tự như javabean, có dữ liệu (private) và các phương thức set/get																									
+																											
+		1 ActionForm có thể chứa các javabean  khác nhau																									
+		Mỗi Action chỉ có thể có một ActionForm																									
+		Một ActionForm có thể có nhiều javabean khác nhau																									
+																											
+		Một số tag quan trọng trong file Struts-config.xml																									
+			form-beans				: khai báo các ActionForm																				
+			action-mappings						khai bao các Action																		
+					input : trang jsp hoặc action sẽ được chuyển hướng về khi hàm validate có lỗi error																						
+					name: ActionForm tương ứng với Action																						
+					path: đường dẫn (duy nhất) của Action, được mapping để khi truy cập vào đường dẫn này thì Action được gọi																						
+					scope : phạm vi của ActionForm tương ứng, có thể là request hoặc session																						
+					type: vị trí của Action																						
+					forward : thực hiện điều hướng																						
+						name: tên của điều hướng																					
+						path: đích đến của điều hướng ( có thể là JSP hoặc Action khác).																					
+						redirect : quy định kiểu chuyển hướng ( có hoặc không giữ lại request hiện tại )																					
+																											
+																											
+																											
+		ActionForm có thêm 2 hàm so với javabean là hàm validate() và hàm reset().																									
+		Hàm validate() sẽ kiểm tra các dữ liệu trước khi được chuyển sang Action . Lưu ý là chỉ sử dụng validate() để kiểm tra các dữ liệu đơn giản, khi ActionForm không liên qua đến Database																									
+		Nếu liên quan đến database thì sẽ để tầng BO, DAO validate dữ liệu																									
+																											
+		Trang JSP vẫn làm nhiệm vụ hiển thị dữ liệu cho người dùng, tuy nhiên không còn được viết các đoạn lệnh Java trong trang JSP																									
+			Thay vào đó sẽ sử dụng các thẻ tag tương ứng của struts. Khi đó dữ liệu sẽ được mapping theo request ( hoặc session tùy theo scope) dễ dàng																								
+			Struts bao gồm 3 nhóm thẻ chính:																								
+					HTML:  tương ứng với các thẻ HTML																						
+					Logic : điều khiển các mệnh đề logic, các vòng lặp trong struts																						
+					Bean: định nghĩa một bean, tag hoặc đưa ra một xử lý cho kết quả																						
